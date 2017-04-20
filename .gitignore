@@ -1,0 +1,5 @@
+.bundle/
+Gemfile.lock
+*.gem
+gems
+settings/message_store_postgres.json
