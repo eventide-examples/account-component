@@ -9,4 +9,6 @@ command_stream_name = 'account:command-123'
 
 Messaging::Postgres::Write.(deposit, command_stream_name)
 
-# TODO: Read stream and handle each command message
+MessageStore::Postgres::Read.(command_stream_name) do |message_data|
+  Handlers::Commands.(message_data)
+end
