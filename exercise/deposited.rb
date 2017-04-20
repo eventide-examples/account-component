@@ -12,4 +12,6 @@ stream_name = 'account-123'
 
 Messaging::Postgres::Write.(deposited, stream_name)
 
-# TODO: Read stream and print each message using pp
+MessageStore::Postgres::Read.(stream_name) do |message_data|
+  pp message_data
+end
