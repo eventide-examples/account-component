@@ -1,6 +1,7 @@
 module AccountComponent
   module Handlers
     class Commands
+      include Log::Dependency
       include Messaging::Handle
       include Messaging::StreamName
       include Messages::Commands
@@ -17,6 +18,26 @@ module AccountComponent
       end
 
       category :account
+
+      handle Open do |open|
+        account_id = open.account_id
+
+        account = store.fetch(account_id)
+
+        if account.open?
+          logger.info(tag: :ignored) { "Command ignored (Command: #{open.message_type}, Account ID: #{account_id}, Customer ID: #{open.customer_id})" }
+          return
+        end
+
+        time = clock.iso8601
+
+        opened = Opened.follow(open)
+        opened.processed_time = time
+
+        stream_name = stream_name(account_id)
+
+        write.(opened, stream_name)
+      end
 
       handle Deposit do |deposit|
         account_id = deposit.account_id
