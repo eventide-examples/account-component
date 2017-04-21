@@ -14,6 +14,8 @@ account = Account.new
 
 puts "Account balance: $#{account.balance}"
 
-# TODO: Read stream 'account-123', projecting each event to entity
+MessageStore::Postgres::Read.(stream_name) do |message_data|
+  Projection.(account, message_data)
+end
 
-# TODO: Print account entity balance after projection
+puts "Account #{account.id} balance: $#{account.balance}"

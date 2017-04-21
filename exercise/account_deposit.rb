@@ -12,6 +12,8 @@ account.deposit(amount)
 
 puts "Account #{account.id} balance: $#{account.balance}"
 
-# TODO: Deposit $22 into account
+amount = 22
+puts "Deposit $#{amount} to account #{account.id}"
+account.deposit(amount)
 
-# TODO: Print account balance again
+puts "Account #{account.id} balance: $#{account.balance}"
