@@ -5,16 +5,15 @@ context "Handle Commands" do
     context "Deposited" do
       handler = Handlers::Commands.new
 
-      processed_time = Time.now
+      processed_time = Controls::Time::Processed::Raw.example
 
       handler.clock.now = processed_time
 
-      account_id = Identifier::UUID::Random.get
+      deposit = Controls::Commands::Deposit.example
 
-      deposit = Messages::Commands::Deposit.new
-      deposit.account_id = account_id
-      deposit.amount = 11
-      deposit.time = '2000-01-01T11:11:11.000Z'
+      account_id = deposit.account_id or fail
+      amount = deposit.amount or fail
+      effective_time = deposit.time or fail
 
       handler.(deposit)
 
@@ -42,11 +41,11 @@ context "Handle Commands" do
         end
 
         test "amount" do
-          assert(deposited.amount == 11)
+          assert(deposited.amount == amount)
         end
 
         test "time" do
-          assert(deposited.time == '2000-01-01T11:11:11.000Z')
+          assert(deposited.time == effective_time)
         end
 
         test "processed_time" do
