@@ -4,7 +4,8 @@ module AccountComponent
       class Close
         include Messaging::Message
 
-        # TODO Implement Close message
+        attribute :account_id, String
+        attribute :time, String
       end
     end
   end

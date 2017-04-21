@@ -6,13 +6,14 @@ module AccountComponent
     attribute :customer_id, String
     attribute :balance, Numeric, default: 0
     attribute :opened_time, Time
+    attribute :closed_time, Time
 
     def open?
       !opened_time.nil?
     end
 
     def closed?
-      # TODO Implement
+      !closed_time.nil?
     end
 
     def deposit(amount)

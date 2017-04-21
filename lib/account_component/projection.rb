@@ -31,7 +31,9 @@ module AccountComponent
     end
 
     apply Closed do |closed|
-      # TODO Implement
+      closed_time = Time.parse(closed.time)
+
+      account.closed_time = closed_time
     end
   end
 end
