@@ -8,5 +8,9 @@ module AccountComponent
     def deposit(amount)
       self.balance += amount
     end
+
+    def withdraw(amount)
+      # TODO Deduct amount from balance
+    end
   end
 end
