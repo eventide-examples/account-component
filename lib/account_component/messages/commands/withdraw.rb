@@ -4,7 +4,9 @@ module AccountComponent
       class Withdraw
         include Messaging::Message
 
-        # Implement Withdraw command message
+        attribute :account_id, String
+        attribute :amount, Numeric
+        attribute :time, String
       end
     end
   end
