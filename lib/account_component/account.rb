@@ -14,7 +14,7 @@ module AccountComponent
     end
 
     def sufficient_funds?(amount)
-      # TODO Balance must be greater than or equal to amount
+      balance >= amount
     end
   end
 end
