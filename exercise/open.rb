@@ -12,8 +12,10 @@ command_stream_name = "account:command-#{account_id}"
 # Write open command
 Messaging::Postgres::Write.(open, command_stream_name)
 
-# TODO Write open command again
+# Write open command again
+Messaging::Postgres::Write.(open, command_stream_name)
 
+# Handle both commands
 MessageStore::Postgres::Read.(command_stream_name) do |message_data|
   Handlers::Commands.(message_data)
 end
