@@ -4,7 +4,10 @@ module AccountComponent
       class Withdrawn
         include Messaging::Message
 
-        # TODO Implement Withdrawn event message
+        attribute :account_id, String
+        attribute :amount, Numeric
+        attribute :time, String
+        attribute :processed_time, String
       end
     end
   end
