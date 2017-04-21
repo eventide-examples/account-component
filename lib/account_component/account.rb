@@ -10,7 +10,7 @@ module AccountComponent
     end
 
     def withdraw(amount)
-      # TODO Deduct amount from balance
+      self.balance -= amount
     end
   end
 end
