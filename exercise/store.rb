@@ -38,6 +38,14 @@ account = store.fetch(account_id)
 puts "Account #{account_id} balance: $#{account.balance}"
 
 
-# TODO Write a withdrawn event for $1111 to account stream
+withdrawn = Messages::Events::Withdrawn.new
+withdrawn.account_id = account_id
+withdrawn.time = '2000-01-01T11:11:11.000Z'
+withdrawn.processed_time = '2000-01-01T22:22:22.000Z'
+withdrawn.amount = 1111
 
-# TODO Fetch account again and print balance
+Messaging::Postgres::Write.(withdrawn, stream_name)
+
+
+account = store.fetch(account_id)
+puts "Account #{account_id} balance: $#{account.balance}"
