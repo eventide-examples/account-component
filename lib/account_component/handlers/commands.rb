@@ -8,10 +8,12 @@ module AccountComponent
 
       dependency :write, Messaging::Postgres::Write
       dependency :clock, Clock::UTC
+      dependency :store, Store
 
       def configure
         Messaging::Postgres::Write.configure(self)
         Clock::UTC.configure(self)
+        Store.configure(self)
       end
 
       category :account
@@ -31,6 +33,12 @@ module AccountComponent
 
       handle Withdraw do |withdraw|
         account_id = withdraw.account_id
+
+        account = store.fetch(account_id)
+
+        # TODO Determine if account has sufficient funds
+
+        # TODO Write WithdrawalRejected (and return) if insufficient funds
 
         time = clock.iso8601
 

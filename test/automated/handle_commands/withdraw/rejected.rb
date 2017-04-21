@@ -2,12 +2,12 @@ require_relative '../../automated_init'
 
 context "Handle Commands" do
   context "Withdraw" do
-    context "Withdrawn" do
+    context "Rejected" do
       handler = Handlers::Commands.new
 
       account_id = Identifier::UUID::Random.get
 
-      amount = 1
+      amount = 12
 
       processed_time = Time.now
 
@@ -28,16 +28,16 @@ context "Handle Commands" do
 
       writer = handler.write
 
-      withdrawn = writer.one_message do |event|
-        event.instance_of?(Messages::Events::Withdrawn)
+      withdrawal_rejected = writer.one_message do |event|
+        event.instance_of?(Messages::Events::WithdrawalRejected)
       end
 
-      test "Withdrawn Event is Written" do
-        refute(withdrawn.nil?)
+      test "Withdrawal Rejected Event is Written" do
+        refute(withdrawal_rejected.nil?)
       end
 
       test "Written to the account stream" do
-        written_to_stream = writer.written?(withdrawn) do |stream_name|
+        written_to_stream = writer.written?(withdrawal_rejected) do |stream_name|
           stream_name == "account-#{account_id}"
         end
 
@@ -46,21 +46,17 @@ context "Handle Commands" do
 
       context "Attributes" do
         test "account_id" do
-          assert(withdrawn.account_id == account_id)
+          assert(withdrawal_rejected.account_id == account_id)
         end
 
         test "amount" do
-          assert(withdrawn.amount == amount)
+          assert(withdrawal_rejected.amount == amount)
         end
 
         test "time" do
-          assert(withdrawn.time == '2000-01-01T11:11:11.000Z')
-        end
-
-        test "processed_time" do
           processed_time_iso8601 = Clock::UTC.iso8601(processed_time)
 
-          assert(withdrawn.processed_time == processed_time_iso8601)
+          assert(withdrawal_rejected.time == processed_time_iso8601)
         end
       end
     end
