@@ -1,7 +1,9 @@
 require_relative './exercise_init'
 
+account_id = Identifier::UUID::Random.get
+
 account = Account.new
-account.id = '123'
+account.id = account_id
 account.balance = 1
 
 puts "Account #{account.id} balance: $#{account.balance}"
