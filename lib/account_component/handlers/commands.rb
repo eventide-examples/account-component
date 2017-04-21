@@ -28,6 +28,10 @@ module AccountComponent
 
         write.(deposited, stream_name)
       end
+
+      handle Withdraw do |withdraw|
+        # TODO Implement Withdraw command handler
+      end
     end
   end
 end
