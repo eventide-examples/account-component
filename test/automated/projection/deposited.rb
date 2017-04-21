@@ -5,8 +5,10 @@ context "Projection" do
     account = Account.new
     account.balance = 1
 
+    account_id = Identifier::UUID::Random.get
+
     deposited = Messages::Events::Deposited.new
-    deposited.account_id = '123'
+    deposited.account_id = account_id
     deposited.amount = 11
 
     Projection.(account, deposited)
@@ -17,7 +19,7 @@ context "Projection" do
 
     context "Attributes"do
       test "account_id" do
-        assert(account.id == '123')
+        assert(account.id == account_id)
       end
     end
   end

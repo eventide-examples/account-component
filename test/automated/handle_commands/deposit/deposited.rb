@@ -9,8 +9,10 @@ context "Handle Commands" do
 
       handler.clock.now = processed_time
 
+      account_id = Identifier::UUID::Random.get
+
       deposit = Messages::Commands::Deposit.new
-      deposit.account_id = '123'
+      deposit.account_id = account_id
       deposit.amount = 11
       deposit.time = '2000-01-01T11:11:11.000Z'
 
@@ -26,9 +28,9 @@ context "Handle Commands" do
         refute(deposited.nil?)
       end
 
-      test "Written to the account-123 stream" do
+      test "Written to the account stream" do
         written_to_stream = writer.written?(deposited) do |stream_name|
-          stream_name == 'account-123'
+          stream_name == "account-#{account_id}"
         end
 
         assert(written_to_stream)
@@ -36,7 +38,7 @@ context "Handle Commands" do
 
       context "Attributes" do
         test "account_id" do
-          assert(deposited.account_id == '123')
+          assert(deposited.account_id == account_id)
         end
 
         test "amount" do
