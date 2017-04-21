@@ -2,12 +2,11 @@ require_relative '../automated_init'
 
 context "Account" do
   context "Sufficient Funds" do
-    account = Account.new
-    account.balance = 11
+    account = Controls::Account::Balance.example
 
     context "Sufficient" do
       context "Balance equals amount" do
-        amount = 11
+        amount = account.balance
 
         sufficient_funds = account.sufficient_funds?(amount)
 
@@ -17,7 +16,7 @@ context "Account" do
       end
 
       context "Balance is greater than amount" do
-        amount = 10
+        amount = account.balance - 1
 
         sufficient_funds = account.sufficient_funds?(amount)
 
@@ -29,7 +28,7 @@ context "Account" do
 
     context "Insufficient" do
       context "Balance is less than amount" do
-        amount = 12
+        amount = account.balance + 1
 
         sufficient_funds = account.sufficient_funds?(amount)
 

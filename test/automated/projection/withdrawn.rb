@@ -2,23 +2,28 @@ require_relative '../automated_init'
 
 context "Projection" do
   context "Withdrawn" do
-    account = Account.new
-    account.balance = 11
+    withdrawn = Controls::Events::Withdrawn.example
 
-    account_id = Identifier::UUID::Random.get
+    context do
+      account = Controls::Account::Balance.example
+      prior_balance = account.balance
 
-    withdrawn = Messages::Events::Withdrawn.new
-    withdrawn.account_id = account_id
-    withdrawn.amount = 1
+      Projection.(account, withdrawn)
 
-    Projection.(account, withdrawn)
-
-    test "Account balance is decreased" do
-      assert(account.balance == 10)
+      test "Account balance is decreased" do
+        assert(account.balance == prior_balance - withdrawn.amount)
+      end
     end
 
-    context "Attributes"do
-      test "account_id" do
+    context "ID Is Set" do
+      account = Controls::Account::New.example
+
+      assert(account.id.nil?)
+      account_id = withdrawn.account_id or fail
+
+      Projection.(account, withdrawn)
+
+      test do
         assert(account.id == account_id)
       end
     end

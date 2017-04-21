@@ -5,24 +5,19 @@ context "Handle Commands" do
     context "Rejected" do
       handler = Handlers::Commands.new
 
-      account_id = Identifier::UUID::Random.get
-
-      amount = 12
-
-      processed_time = Time.now
+      processed_time = Controls::Time::Processed::Raw.example
 
       handler.clock.now = processed_time
 
-      account = Account.new
-      account.id = account_id
-      account.balance = 11
+      account = Controls::Account.example(balance: 0)
 
-      handler.store.add(account_id, account)
+      handler.store.add(account.id, account)
 
-      withdraw = Messages::Commands::Withdraw.new
-      withdraw.account_id = account_id
-      withdraw.amount = amount
-      withdraw.time = '2000-01-01T11:11:11.000Z'
+      withdraw = Controls::Commands::Withdraw.example
+
+      account_id = withdraw.account_id or fail
+      amount = withdraw.amount or fail
+      effective_time = withdraw.time or fail
 
       handler.(withdraw)
 
