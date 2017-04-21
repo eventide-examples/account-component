@@ -8,6 +8,7 @@ module AccountComponent
 
         account.id = id
         account.balance = balance
+        account.opened_time = Time::Effective::Raw.example
 
         account
       end
@@ -27,6 +28,12 @@ module AccountComponent
       module New
         def self.example
           AccountComponent::Account.build
+        end
+      end
+
+      module Open
+        def self.example
+          Account.example
         end
       end
 
