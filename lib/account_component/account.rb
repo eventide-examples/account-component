@@ -11,6 +11,10 @@ module AccountComponent
       !opened_time.nil?
     end
 
+    def closed?
+      # TODO Implement
+    end
+
     def deposit(amount)
       self.balance += amount
     end

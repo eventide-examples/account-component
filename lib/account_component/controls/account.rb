@@ -46,6 +46,14 @@ module AccountComponent
           11.1
         end
       end
+
+      module Closed
+        def self.example
+          account = Account.example
+          account.closed_time = Time::Effective::Raw.example
+          account
+        end
+      end
     end
   end
 end
