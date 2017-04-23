@@ -22,7 +22,7 @@ module AccountComponent
       handle Open do |open|
         account_id = open.account_id
 
-        account = store.fetch(account_id)
+        account, version = store.fetch(account_id, include: :version)
 
         if account.open?
           logger.info(tag: :ignored) { "Command ignored (Command: #{open.message_type}, Account ID: #{account_id}, Customer ID: #{open.customer_id})" }
@@ -36,7 +36,7 @@ module AccountComponent
 
         stream_name = stream_name(account_id)
 
-        write.(opened, stream_name)
+        write.(opened, stream_name, expected_version: version)
       end
 
       handle Close do |close|
