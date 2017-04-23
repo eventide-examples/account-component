@@ -7,6 +7,7 @@ module AccountComponent
     attribute :balance, Numeric, default: 0
     attribute :opened_time, Time
     attribute :closed_time, Time
+    attribute :sequence, Integer
 
     def open?
       !opened_time.nil?
@@ -26,6 +27,12 @@ module AccountComponent
 
     def sufficient_funds?(amount)
       balance >= amount
+    end
+
+    def processed?(message_sequence)
+      return false if sequence.nil?
+
+      sequence >= message_sequence
     end
   end
 end

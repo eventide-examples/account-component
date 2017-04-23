@@ -14,6 +14,7 @@ context "Handle Commands" do
       account_id = deposit.account_id or fail
       amount = deposit.amount or fail
       effective_time = deposit.time or fail
+      global_position = deposit.metadata.global_position or fail
 
       handler.(deposit)
 
@@ -52,6 +53,10 @@ context "Handle Commands" do
           processed_time_iso8601 = Clock::UTC.iso8601(processed_time)
 
           assert(deposited.processed_time == processed_time_iso8601)
+        end
+
+        test "sequence" do
+          assert(deposited.sequence == global_position)
         end
       end
     end
