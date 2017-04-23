@@ -4,6 +4,8 @@ require 'identifier/uuid/controls'
 require 'account_component/controls/id'
 require 'account_component/controls/time'
 require 'account_component/controls/money'
+require 'account_component/controls/position'
+require 'account_component/controls/sequence'
 require 'account_component/controls/version'
 
 require 'account_component/controls/account'

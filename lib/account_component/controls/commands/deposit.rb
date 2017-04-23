@@ -9,6 +9,8 @@ module AccountComponent
           deposit.amount = Money.example
           deposit.time = Controls::Time::Effective.example
 
+          deposit.metadata.global_position = Position.example
+
           deposit
         end
       end

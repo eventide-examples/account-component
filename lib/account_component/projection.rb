@@ -20,6 +20,8 @@ module AccountComponent
       amount = deposited.amount
 
       account.deposit(amount)
+
+      account.sequence = deposited.sequence
     end
 
     apply Withdrawn do |withdrawn|
