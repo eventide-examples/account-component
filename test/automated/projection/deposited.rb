@@ -8,10 +8,16 @@ context "Projection" do
       account = Controls::Account::Balance.example
       prior_balance = account.balance
 
+      sequence = deposited.sequence or fail
+
       Projection.(account, deposited)
 
       test "Account balance is increased" do
         assert(account.balance == prior_balance + deposited.amount)
+      end
+
+      test "Sequence is set" do
+        assert(account.sequence == sequence)
       end
     end
 

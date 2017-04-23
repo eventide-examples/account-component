@@ -62,20 +62,30 @@ module AccountComponent
       handle Deposit do |deposit|
         account_id = deposit.account_id
 
+        account, version = store.fetch(account_id, include: :version)
+
+        sequence = deposit.metadata.global_position
+
+        if account.processed?(sequence)
+          logger.info(tag: :ignored) { "Command ignored (Command: #{deposit.message_type}, Account ID: #{account_id}, Account Sequence: #{account.sequence}, Deposit Sequence: #{sequence})" }
+          return
+        end
+
         time = clock.iso8601
 
         deposited = Deposited.follow(deposit)
         deposited.processed_time = time
+        deposited.sequence = sequence
 
         stream_name = stream_name(account_id)
 
-        write.(deposited, stream_name)
+        write.(deposited, stream_name, expected_version: version)
       end
 
       handle Withdraw do |withdraw|
         account_id = withdraw.account_id
 
-        account = store.fetch(account_id)
+        account, version = store.fetch(account_id, include: :version)
 
         time = clock.iso8601
 
@@ -85,7 +95,7 @@ module AccountComponent
           withdrawal_rejected = WithdrawalRejected.follow(withdraw)
           withdrawal_rejected.time = time
 
-          write.(withdrawal_rejected, stream_name)
+          write.(withdrawal_rejected, stream_name, expected_version: version)
 
           return
         end
@@ -93,7 +103,7 @@ module AccountComponent
         withdrawn = Withdrawn.follow(withdraw)
         withdrawn.processed_time = time
 
-        write.(withdrawn, stream_name)
+        write.(withdrawn, stream_name, expected_version: version)
       end
     end
   end

@@ -8,6 +8,7 @@ module AccountComponent
         attribute :amount, Numeric
         attribute :time, String
         attribute :processed_time, String
+        attribute :sequence, Integer
       end
     end
   end
