@@ -87,6 +87,8 @@ module AccountComponent
 
         account, version = store.fetch(account_id, include: :version)
 
+        # TODO Check global position of withdraw command and ignore if account has already processed withdrawal
+
         time = clock.iso8601
 
         stream_name = stream_name(account_id)

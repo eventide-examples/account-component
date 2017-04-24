@@ -9,6 +9,8 @@ module AccountComponent
           withdraw.amount = Money.example
           withdraw.time = Controls::Time::Effective.example
 
+          withdraw.metadata.global_position = Position.example
+
           withdraw
         end
       end
