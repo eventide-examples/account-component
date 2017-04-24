@@ -10,6 +10,8 @@ module AccountComponent
           withdrawn.time = Controls::Time::Effective.example
           withdrawn.processed_time = Controls::Time::Processed.example
 
+          withdrawn.sequence = Sequence.example
+
           withdrawn
         end
       end
