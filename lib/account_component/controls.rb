@@ -21,3 +21,6 @@ require 'account_component/controls/events/deposited'
 require 'account_component/controls/events/withdrawn'
 require 'account_component/controls/events/withdrawal_rejected'
 require 'account_component/controls/events/closed'
+
+require 'account_component/controls/write/deposit'
+require 'account_component/controls/write/withdraw'
