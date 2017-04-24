@@ -2,9 +2,12 @@ module AccountComponent
   module Controls
     module Commands
       module Deposit
-        def self.example
+        def self.example(id: nil)
+          id ||= ID.example
+
           deposit = AccountComponent::Messages::Commands::Deposit.build
 
+          deposit.deposit_id = id
           deposit.account_id = Account.id
           deposit.amount = Money.example
           deposit.time = Controls::Time::Effective.example
