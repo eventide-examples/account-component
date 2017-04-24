@@ -31,10 +31,12 @@ module AccountComponent
 
       account.withdraw(amount)
 
-      # TODO Update sequence of account entity
+      account.sequence = withdrawn.sequence
     end
 
-    # TODO Apply withdrawal rejected event to update account's sequence
+    apply WithdrawalRejected do |withdrawal_rejected|
+      account.sequence = withdrawal_rejected.sequence
+    end
 
     apply Closed do |closed|
       closed_time = Time.parse(closed.time)

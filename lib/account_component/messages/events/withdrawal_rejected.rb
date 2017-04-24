@@ -7,7 +7,7 @@ module AccountComponent
         attribute :account_id, String
         attribute :amount, Numeric
         attribute :time, String
-        # TODO Add sequence attribute
+        attribute :sequence, Integer
       end
     end
   end
