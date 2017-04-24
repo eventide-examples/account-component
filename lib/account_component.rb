@@ -17,3 +17,4 @@ require 'account_component/projection'
 require 'account_component/store'
 
 require 'account_component/handlers/commands'
+require 'account_component/handlers/commands/transactions'

@@ -5,6 +5,7 @@ module AccountComponent
         def self.example
           deposited = AccountComponent::Messages::Events::Deposited.build
 
+          deposited.deposit_id = ID.example
           deposited.account_id = Account.id
           deposited.amount = Money.example
           deposited.time = Controls::Time::Effective.example
