@@ -42,6 +42,10 @@ module AccountComponent
 
           write.(deposited, stream_name, expected_version: version)
         end
+
+        handle Withdraw do |withdraw|
+          # TODO Move implementation from commands handler
+        end
       end
     end
   end

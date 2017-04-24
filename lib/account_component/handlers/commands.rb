@@ -70,6 +70,8 @@ module AccountComponent
       end
 
       handle Withdraw do |withdraw|
+        # TODO Write withdrawal reservation
+
         account_id = withdraw.account_id
 
         account, version = store.fetch(account_id, include: :version)
