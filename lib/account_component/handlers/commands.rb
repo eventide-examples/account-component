@@ -60,26 +60,13 @@ module AccountComponent
       end
 
       handle Deposit do |deposit|
-        account_id = deposit.account_id
+        transaction_stream_name = stream_name(deposit.deposit_id, 'accountTransaction')
 
-        account, version = store.fetch(account_id, include: :version)
+        deposit = Deposit.follow(deposit)
 
-        sequence = deposit.metadata.global_position
-
-        if account.processed?(sequence)
-          logger.info(tag: :ignored) { "Command ignored (Command: #{deposit.message_type}, Account ID: #{account_id}, Account Sequence: #{account.sequence}, Deposit Sequence: #{sequence})" }
-          return
+        Try.(MessageStore::ExpectedVersion::Error) do
+          write.initial(deposit, transaction_stream_name)
         end
-
-        time = clock.iso8601
-
-        deposited = Deposited.follow(deposit)
-        deposited.processed_time = time
-        deposited.sequence = sequence
-
-        stream_name = stream_name(account_id)
-
-        write.(deposited, stream_name, expected_version: version)
       end
 
       handle Withdraw do |withdraw|
