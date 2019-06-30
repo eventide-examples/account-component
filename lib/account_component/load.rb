@@ -10,3 +10,4 @@ require 'account_component/messages/events/closed'
 
 require 'account_component/commands/command'
 require 'account_component/commands/withdraw'
+require 'account_component/commands/deposit'
