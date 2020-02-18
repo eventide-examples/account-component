@@ -1,8 +1,10 @@
 require_relative './exercise_init'
 
 account_id = Identifier::UUID::Random.get
+withdrawal_id = Identifier::UUID::Random.get
 
 withdraw = Messages::Commands::Withdraw.new
+withdraw.withdrawal_id = withdrawal_id
 withdraw.account_id = account_id
 withdraw.amount = 11
 withdraw.time = '2000-01-01T11:11:11.000Z'

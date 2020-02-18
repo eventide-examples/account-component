@@ -1,8 +1,10 @@
 require_relative './exercise_init'
 
 account_id = Identifier::UUID::Random.get
+deposit_id = Identifier::UUID::Random.get
 
 deposit = Messages::Commands::Deposit.new
+deposit.deposit_id = deposit_id
 deposit.account_id = account_id
 deposit.amount = 11
 deposit.time = '2000-01-01T11:11:11.000Z'
