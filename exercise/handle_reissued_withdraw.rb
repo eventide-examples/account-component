@@ -22,7 +22,7 @@ withdraw.amount = 11
 withdraw.time = '2000-01-01T11:11:11.000Z'
 
 command_stream_name = "account:command-#{account_id}"
-transaction_stream_name = "accountTransaction-#{withdrawal_id}"
+transaction_stream_name = "account-accountTransaction-#{withdrawal_id}"
 
 
 store = Store.build

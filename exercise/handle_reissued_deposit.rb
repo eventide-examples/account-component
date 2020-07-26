@@ -10,7 +10,7 @@ deposit.amount = 11
 deposit.time = '2000-01-01T11:11:11.000Z'
 
 command_stream_name = "account:command-#{account_id}"
-transaction_stream_name = "accountTransaction-#{deposit_id}"
+transaction_stream_name = "account-accountTransaction-#{deposit_id}"
 
 
 store = Store.build
