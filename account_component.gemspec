@@ -19,4 +19,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'evt-try'
 
   s.add_development_dependency 'test_bench'
+
+  s.add_development_dependency 'evt-entity_projection-fixtures'
+  s.add_development_dependency 'evt-messaging-fixtures'
 end
