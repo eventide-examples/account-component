@@ -6,14 +6,15 @@ context "Projection" do
 
     assert(account.closed_time.nil?)
 
+    projection = Projection.build(account)
     closed = Controls::Events::Closed.example
 
-    Projection.(account, closed)
-
-    test "Closed time is converted and copied" do
-      closed_time = Time.parse(closed.time)
-
-      assert(account.closed_time == closed_time)
+    fixture(
+      EntityProjection::Fixtures::Projection,
+      projection,
+      closed
+    ) do |fixture|
+      fixture.assert_transformed_and_copied(:time => :closed_time) { |v| Time.parse(v) }
     end
   end
 end
