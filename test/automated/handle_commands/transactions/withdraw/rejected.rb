@@ -26,7 +26,7 @@ context "Handle Commands" do
         writer = handler.write
 
         withdrawal_rejected = writer.one_message do |event|
-          event.instance_of?(Messages::Events::WithdrawalRejected)
+          assert(event.instance_of?(Messages::Events::WithdrawalRejected))
         end
 
         test "Withdrawal Rejected Event is Written" do

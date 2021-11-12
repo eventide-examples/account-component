@@ -18,7 +18,7 @@ context "Handle Commands" do
       writer = handler.write
 
       opened = writer.one_message do |event|
-        event.instance_of?(Messages::Events::Opened)
+        assert(event.instance_of?(Messages::Events::Opened))
       end
 
       test "Is entity version" do

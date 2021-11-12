@@ -16,7 +16,7 @@ context "Handle Commands" do
       writer = handler.write
 
       closed = writer.one_message do |event|
-        event.instance_of?(Messages::Events::Closed)
+        assert(event.instance_of?(Messages::Events::Closed))
       end
 
       test "Closed Event is not Written" do

@@ -19,7 +19,7 @@ context "Handle Commands" do
         writer = handler.write
 
         deposited = writer.one_message do |event|
-          event.instance_of?(Messages::Events::Deposited)
+          assert(event.instance_of?(Messages::Events::Deposited))
         end
 
         test "Is entity version" do

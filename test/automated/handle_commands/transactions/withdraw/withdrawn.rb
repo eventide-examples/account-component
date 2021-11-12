@@ -26,7 +26,7 @@ context "Handle Commands" do
         writer = handler.write
 
         withdrawn = writer.one_message do |event|
-          event.instance_of?(Messages::Events::Withdrawn)
+          assert(event.instance_of?(Messages::Events::Withdrawn))
         end
 
         test "Withdrawn Event is Written" do
