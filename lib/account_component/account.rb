@@ -4,7 +4,7 @@ module AccountComponent
 
     attribute :id, String
     attribute :customer_id, String
-    attribute :balance, Numeric, default: 0
+    attribute :balance, Numeric, default: -> { 0 }
     attribute :opened_time, Time
     attribute :closed_time, Time
     attribute :sequence, Integer
