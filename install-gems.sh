@@ -13,7 +13,12 @@ set -e
 echo "Installing gems to ./gems"
 echo '= = ='
 
-cmd="bundle install --standalone --path=./gems"
+cmd="bundle config set --local path ./gems"
+
+echo $cmd
+($cmd)
+
+cmd="bundle install --standalone"
 
 echo $cmd
 ($cmd)
